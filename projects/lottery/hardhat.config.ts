@@ -7,9 +7,9 @@ import "hardhat-contract-sizer";
 import "solidity-coverage";
 import "dotenv/config";
 
-const bscTestnet: NetworkUserConfig = {
-  url: "https://data-seed-prebsc-1-s1.binance.org:8545/",
-  chainId: 97,
+const polygonTestnet: NetworkUserConfig = {
+  url: "https://rpc-mumbai.maticvigil.com",
+  chainId: 80001,
   accounts: [process.env.KEY_TESTNET!],
 };
 
@@ -26,7 +26,7 @@ const config: HardhatUserConfig = {
       gas: 120000000,
       blockGasLimit: 0x1fffffffffffff,
     },
-    // testnet: bscTestnet,
+    // testnet: polygonTestnet,
     // mainnet: bscMainnet,
   },
   solidity: {
