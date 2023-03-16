@@ -20,18 +20,15 @@ export default {
     testnet: "0x4b09e658ed251bcafeebbc69400383d49f344ace09b9576fe248bb02c003fe9f",
   },
   OperatorAddress: {
-    // TODO: MUST BE UPDATED WITH ADDRESSES
     mainnet: "?",
-    testnet: "?",
+    testnet: "0xf8FBA4b3feF91817Ff2ee763F172a4562Cc743d9",
   },
   TreasuryAddress: {
-    // TODO: MUST BE UPDATED WITH ADDRESSES
     mainnet: "?",
-    testnet: "?",
+    testnet: "0xE155fdb2e9C474679065A9697ACA66cE91977588",
   },
   InjectorAddress: {
-    // TODO: MUST BE UPDATED WITH ADDRESSES
     mainnet: "?",
-    testnet: "?",
+    testnet: "0x5aB181fB6C9885a510f80A12Bac1C9ce3bEa66A4",
   },
 };
