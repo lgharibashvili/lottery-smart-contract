@@ -4,7 +4,7 @@ import config from "../config";
 const currentNetwork = network.name;
 
 const main = async (withVRFOnTestnet: boolean = true) => {
-  const PancakeSwapLottery = await ethers.getContractFactory("PancakeSwapLottery");
+  const Lottery = await ethers.getContractFactory("Lottery");
 
   if (currentNetwork == "testnet") {
     let randomNumberGenerator;
@@ -35,16 +35,20 @@ const main = async (withVRFOnTestnet: boolean = true) => {
       console.log("RandomNumberGenerator deployed to:", randomNumberGenerator.address);
     }
 
-    const pancakeSwapLottery = await PancakeSwapLottery.deploy(
-      config.CakeToken[currentNetwork],
-      randomNumberGenerator.address
-    );
+    const lotttery = await Lottery.deploy(config.CurrencyToken[currentNetwork], randomNumberGenerator.address);
 
-    await pancakeSwapLottery.deployed();
-    console.log("PancakeSwapLottery deployed to:", pancakeSwapLottery.address);
+    await lottery.deployed();
+    console.log("Lottery deployed to:", lottery.address);
 
     // Set lottery address
-    await randomNumberGenerator.setLotteryAddress(pancakeSwapLottery.address);
+    await randomNumberGenerator.setLotteryAddress(lottery.address);
+
+    // Set operator & treasury adresses
+    await lottery.setOperatorAndTreasuryAndInjectorAddresses(
+      config.OperatorAddress[currentNetwork],
+      config.TreasuryAddress[currentNetwork],
+      config.InjectorAddress[currentNetwork]
+    );
   } else if (currentNetwork == "mainnet") {
     const RandomNumberGenerator = await ethers.getContractFactory("RandomNumberGenerator");
     const randomNumberGenerator = await RandomNumberGenerator.deploy(
@@ -61,19 +65,16 @@ const main = async (withVRFOnTestnet: boolean = true) => {
     // Set key hash
     await randomNumberGenerator.setKeyHash(config.KeyHash[currentNetwork]);
 
-    const pancakeSwapLottery = await PancakeSwapLottery.deploy(
-      config.CakeToken[currentNetwork],
-      randomNumberGenerator.address
-    );
+    const lottery = await Lottery.deploy(config.CurrencyToken[currentNetwork], randomNumberGenerator.address);
 
-    await pancakeSwapLottery.deployed();
-    console.log("PancakeSwapLottery deployed to:", pancakeSwapLottery.address);
+    await lottery.deployed();
+    console.log("Lottery deployed to:", lottery.address);
 
     // Set lottery address
-    await randomNumberGenerator.setLotteryAddress(pancakeSwapLottery.address);
+    await randomNumberGenerator.setLotteryAddress(lottery.address);
 
     // Set operator & treasury adresses
-    await pancakeSwapLottery.setOperatorAndTreasuryAndInjectorAddresses(
+    await lottery.setOperatorAndTreasuryAndInjectorAddresses(
       config.OperatorAddress[currentNetwork],
       config.TreasuryAddress[currentNetwork],
       config.InjectorAddress[currentNetwork]
